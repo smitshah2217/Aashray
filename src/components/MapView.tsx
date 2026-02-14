@@ -9,19 +9,21 @@ interface MapViewProps {
 }
 
 const MapView: React.FC<MapViewProps> = ({ listings, onListingClick }) => {
-  const { amenities } = useApp();
+  const { amenities, theme } = useApp();
 
   return (
-    <div className="relative w-full h-[500px] bg-gradient-to-br from-blue-100 to-green-100 rounded-2xl overflow-hidden shadow-lg">
-      {/* Map Background */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="w-full h-full" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }} />
-      </div>
-
-      {/* Map Markers */}
-      <div className="relative w-full h-full p-8">
+    <div className="relative w-full h-[500px] rounded-2xl overflow-hidden shadow-lg">
+      {/* Real Map Background using OpenStreetMap */}
+      <iframe
+        src="https://www.openstreetmap.org/export/embed.html?bbox=72.82%2C19.11%2C72.88%2C19.15&layer=mapnik&marker=19.13%2C72.85"
+        className="absolute inset-0 w-full h-full"
+        style={{ border: 0 }}
+        title="Map View"
+      />
+      
+      {/* Overlay for markers */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="relative w-full h-full p-8 pointer-events-auto">
         {listings.map((listing, index) => {
           const safetyScore = calculateSafetyScore(listing, amenities);
           const position = {
@@ -38,54 +40,83 @@ const MapView: React.FC<MapViewProps> = ({ listings, onListingClick }) => {
             >
               {/* Marker Pin */}
               <div className="relative">
-                <div className={`w-12 h-12 rounded-full shadow-lg flex items-center justify-center text-white font-bold text-sm transition-all group-hover:scale-125 bg-gradient-to-br ${
-                  safetyScore.tier === 'Gold' ? 'from-yellow-400 to-yellow-600' :
-                  safetyScore.tier === 'Silver' ? 'from-gray-400 to-gray-600' :
-                  'from-orange-400 to-orange-600'
-                }`}>
-                  {safetyScore.score}
-                </div>
-                <div className={`absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-0 border-l-[6px] border-r-[6px] border-t-[8px] border-l-transparent border-r-transparent ${
-                  safetyScore.tier === 'Gold' ? 'border-t-yellow-600' :
-                  safetyScore.tier === 'Silver' ? 'border-t-gray-600' :
-                  'border-t-orange-600'
-                }`} />
+                {/* SVG Location Pin */}
+                <svg
+                  width="56"
+                  height="56"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="drop-shadow-2xl transition-all group-hover:scale-125"
+                >
+                  {/* Pin Shadow */}
+                  <ellipse cx="12" cy="22" rx="3" ry="1" fill="black" opacity="0.3" />
+                  
+                  {/* Pin Body */}
+                  <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
+                    fill={safetyScore.tier === 'Gold' ? '#EAB308' : safetyScore.tier === 'Silver' ? '#6B7280' : '#F97316'}
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                  
+                  {/* Inner Circle Background */}
+                  <circle
+                    cx="12"
+                    cy="9"
+                    r="4"
+                    fill="white"
+                  />
+                  
+                  {/* Score Text */}
+                  <text
+                    x="12"
+                    y="11"
+                    textAnchor="middle"
+                    fontSize="7"
+                    fontWeight="bold"
+                    fill={safetyScore.tier === 'Gold' ? '#EAB308' : safetyScore.tier === 'Silver' ? '#6B7280' : '#F97316'}
+                  >
+                    {safetyScore.score}
+                  </text>
+                </svg>
               </div>
 
               {/* Tooltip */}
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 hidden group-hover:block z-10">
-                <div className="bg-white rounded-xl shadow-xl p-4 min-w-[250px]">
-                  <h4 className="font-bold text-gray-800 mb-1">{listing.title}</h4>
+                <div className={`rounded-xl shadow-xl p-4 min-w-[250px] ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+                  <h4 className={`font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{listing.title}</h4>
                   <p className="text-sm text-gray-600 mb-2 flex items-center gap-1">
                     <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                     {listing.distance} km away
                   </p>
+
                   <p className="text-lg font-bold text-amber-600">₹{listing.rent.toLocaleString()}/mo</p>
-                  <div className="mt-2 text-xs text-gray-500">Click to view details</div>
+                  <div className={`mt-2 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Click to view details</div>
                 </div>
               </div>
             </div>
           );
         })}
+        </div>
       </div>
 
       {/* Legend */}
-      <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
-        <h4 className="font-semibold text-gray-800 mb-2 text-sm">Safety Tiers</h4>
+      <div className={`absolute bottom-4 left-4 backdrop-blur-sm rounded-xl p-4 shadow-lg ${theme === 'dark' ? 'bg-gray-800/90' : 'bg-white/90'}`}>
+        <h4 className={`font-semibold mb-2 text-sm ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Safety Tiers</h4>
         <div className="space-y-1 text-xs">
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-gradient-to-br from-yellow-400 to-yellow-600" />
-            <span className="text-gray-700">Gold (85+)</span>
+            <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>Gold (85+)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-gradient-to-br from-gray-400 to-gray-600" />
-            <span className="text-gray-700">Silver (70-84)</span>
+            <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>Silver (70-84)</span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-4 h-4 rounded-full bg-gradient-to-br from-orange-400 to-orange-600" />
-            <span className="text-gray-700">Basic (&lt;70)</span>
+            <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>Basic (&lt;70)</span>
           </div>
         </div>
       </div>
