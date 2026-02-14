@@ -27,8 +27,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   };
 
   const handleQuickLogin = (role: 'student' | 'owner' | 'roommate') => {
-    onLogin(role);
-  };
+  const user = dummyUsers.find(u => u.role === role);
+  if (user) {
+    setEmail(user.email);
+    setPassword(user.password);
+    setError('');
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
@@ -121,7 +126,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               </div>
             </button>
 
-            <button
+            {/* <button
               onClick={() => handleQuickLogin('roommate')}
               className="w-full p-4 bg-gradient-to-r from-purple-50 to-pink-50 border-2 border-purple-200 rounded-xl hover:border-purple-400 transition-all group"
             >
@@ -133,7 +138,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
                 </div>
                 <div className="text-purple-600">→</div>
               </div>
-            </button>
+            </button> */}
           </div>
         </div>
 

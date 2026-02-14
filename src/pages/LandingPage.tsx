@@ -27,7 +27,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
           {/* Student Card */}
           <div 
             className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn"
@@ -62,7 +62,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div>
 
           {/* Roommate Card */}
-          <div 
+          {/* <div 
             className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn"
             style={{ animationDelay: '200ms' }}
             onClick={() => onNavigate()}
@@ -92,7 +92,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             <button className="w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
               Start Swiping
             </button>
-          </div>
+          </div> */}
 
           {/* Owner Card */}
           <div 
