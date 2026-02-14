@@ -72,9 +72,9 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
           }}
           className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors"
         >
-          <span className={`text-xl ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`}>
-            {isBookmarked ? '❤️' : '🤍'}
-          </span>
+          <svg className={`w-6 h-6 ${isBookmarked ? 'fill-red-500' : 'fill-none stroke-gray-400'}`} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
         </button>
 
         {/* Safety Score Badge */}
@@ -89,12 +89,12 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
           {listing.title}
         </h3>
 
-        <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+        <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
           <span>📍</span>
           <span className="line-clamp-1">{listing.address}</span>
         </div>
 
-        <div className={`flex items-center gap-2 text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+        <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
           <span>🚶</span>
           <span>{listing.distance} km away</span>
         </div>
@@ -106,9 +106,10 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
             return amenity ? (
               <span
                 key={amenityId}
-                className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-medium"
+                className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-medium flex items-center gap-1"
               >
-                {amenity.icon} {amenity.name}
+                <span dangerouslySetInnerHTML={{ __html: amenity.icon }} />
+                {amenity.name}
               </span>
             ) : null;
           })}
