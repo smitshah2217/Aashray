@@ -80,7 +80,13 @@ const FilterSection: React.FC<FilterSectionProps> = ({
               maxDistance: parseFloat(e.target.value),
             })
           }
-          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-amber-500"
+          className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+          style={{
+            accentColor: '#d1d5db'
+          }}
+
+
+
         />
         <div className="flex justify-between text-xs text-gray-500 mt-1">
           <span>1 km</span>
