@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tenant } from '../types';
 import { formatCurrency, isRentOverdue } from '../utils/helpers';
+import { useApp } from '../context/AppContext';
 
 interface RentTrackerProps {
   tenants: Tenant[];
@@ -8,6 +9,7 @@ interface RentTrackerProps {
 }
 
 const RentTracker: React.FC<RentTrackerProps> = ({ tenants, onTogglePaid }) => {
+  const { theme } = useApp();
   const totalRent = tenants.reduce((sum, t) => sum + t.rentAmount, 0);
   const collectedRent = tenants
     .filter((t) => t.isPaid)
@@ -16,32 +18,32 @@ const RentTracker: React.FC<RentTrackerProps> = ({ tenants, onTogglePaid }) => {
   const collectionRate = Math.round((collectedRent / totalRent) * 100);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
-      <h3 className="font-bold text-xl text-gray-800 mb-6">Rent Tracker</h3>
+    <div className={`rounded-2xl p-6 shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <h3 className={`font-bold text-xl mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Rent Tracker</h3>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4">
-          <div className="text-sm text-green-600 font-semibold mb-1">
+        <div className={`rounded-xl p-4 ${theme === 'dark' ? 'bg-green-900/30' : 'bg-gradient-to-br from-green-50 to-green-100'}`}>
+          <div className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-green-400' : 'text-green-600'}`}>
             Collected
           </div>
-          <div className="text-2xl font-bold text-green-700">
+          <div className={`text-2xl font-bold ${theme === 'dark' ? 'text-green-300' : 'text-green-700'}`}>
             {formatCurrency(collectedRent)}
           </div>
         </div>
-        <div className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-4">
-          <div className="text-sm text-orange-600 font-semibold mb-1">
+        <div className={`rounded-xl p-4 ${theme === 'dark' ? 'bg-orange-900/30' : 'bg-gradient-to-br from-orange-50 to-orange-100'}`}>
+          <div className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-orange-400' : 'text-orange-600'}`}>
             Pending
           </div>
-          <div className="text-2xl font-bold text-orange-700">
+          <div className={`text-2xl font-bold ${theme === 'dark' ? 'text-orange-300' : 'text-orange-700'}`}>
             {formatCurrency(pendingRent)}
           </div>
         </div>
-        <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4">
-          <div className="text-sm text-blue-600 font-semibold mb-1">
+        <div className={`rounded-xl p-4 ${theme === 'dark' ? 'bg-blue-900/30' : 'bg-gradient-to-br from-blue-50 to-blue-100'}`}>
+          <div className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-600'}`}>
             Collection Rate
           </div>
-          <div className="text-2xl font-bold text-blue-700">
+          <div className={`text-2xl font-bold ${theme === 'dark' ? 'text-blue-300' : 'text-blue-700'}`}>
             {collectionRate}%
           </div>
         </div>
@@ -57,16 +59,16 @@ const RentTracker: React.FC<RentTrackerProps> = ({ tenants, onTogglePaid }) => {
               key={tenant.id}
               className={`p-4 rounded-xl border-2 transition-all ${
                 tenant.isPaid
-                  ? 'border-green-200 bg-green-50'
+                  ? theme === 'dark' ? 'border-green-700 bg-green-900/30' : 'border-green-200 bg-green-50'
                   : overdue
-                  ? 'border-red-200 bg-red-50 animate-pulse'
-                  : 'border-gray-200 bg-gray-50'
+                  ? theme === 'dark' ? 'border-red-700 bg-red-900/30 animate-pulse' : 'border-red-200 bg-red-50 animate-pulse'
+                  : theme === 'dark' ? 'border-gray-700 bg-gray-700' : 'border-gray-200 bg-gray-50'
               }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
-                    <h4 className="font-semibold text-gray-800">
+                    <h4 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                       {tenant.name}
                     </h4>
                     {overdue && (
@@ -75,7 +77,7 @@ const RentTracker: React.FC<RentTrackerProps> = ({ tenants, onTogglePaid }) => {
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
+                  <div className={`flex items-center gap-4 mt-1 text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                     <span>Room {tenant.roomNumber}</span>
                     <span>•</span>
                     <span className="font-semibold">

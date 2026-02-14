@@ -134,25 +134,25 @@ const OwnerDashboard: React.FC = () => {
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-white rounded-2xl p-6 shadow-md mt-6 animate-fadeIn" style={{ animationDelay: '700ms' }}>
-              <h3 className="font-bold text-lg text-gray-800 mb-4">
+            <div className={`rounded-2xl p-6 shadow-md mt-6 animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`} style={{ animationDelay: '700ms' }}>
+              <h3 className={`font-bold text-lg mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 Quick Stats
               </h3>
               <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                  <span className="text-gray-600">Active Amenities</span>
+                <div className={`flex items-center justify-between p-3 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Active Amenities</span>
                   <span className="font-bold text-green-600">
                     {amenities.filter((a) => a.enabled).length} / {amenities.length}
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                  <span className="text-gray-600">Rent Collection</span>
+                <div className={`flex items-center justify-between p-3 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Rent Collection</span>
                   <span className="font-bold text-blue-600">
                     {Math.round((tenants.filter((t) => t.isPaid).length / tenants.length) * 100)}%
                   </span>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
-                  <span className="text-gray-600">Occupancy Rate</span>
+                <div className={`flex items-center justify-between p-3 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Occupancy Rate</span>
                   <span className="font-bold text-purple-600">
                     {Math.round(
                       (allRooms.reduce(

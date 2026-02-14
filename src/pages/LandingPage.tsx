@@ -1,12 +1,23 @@
 import React from 'react';
+import { useApp } from '../context/AppContext';
 
 interface LandingPageProps {
   onNavigate: () => void;
 }
 
 const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
+  const { theme, toggleTheme } = useApp();
+  
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+    <div className={`min-h-screen flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'}`}>
+      {/* Dark Mode Toggle */}
+      <button
+        onClick={toggleTheme}
+        className={`fixed top-4 right-4 p-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg ${theme === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+      
       <div className="max-w-6xl w-full">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fadeIn">
@@ -18,10 +29,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               AASHRAY
             </h1>
           </div>
-          <p className="text-2xl text-gray-700 mb-4 font-medium">
+          <p className={`text-2xl mb-4 font-medium ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
             Safe Student Housing Discovery & Management
           </p>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className={`text-lg max-w-2xl mx-auto ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>
             Find verified accommodation with comprehensive safety ratings, connect with compatible roommates, and manage properties efficiently.
           </p>
         </div>
@@ -30,15 +41,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
           {/* Student Card */}
           <div 
-            className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn"
+            className={`rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
             style={{ animationDelay: '100ms' }}
             onClick={() => onNavigate()}
           >
             <div className="text-6xl mb-4">🎓</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">
+            <h3 className={`text-2xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               For Students
             </h3>
-            <ul className="space-y-2 text-gray-600 mb-6">
+            <ul className={`space-y-2 mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               <li className="flex items-center gap-2">
                 <span className="text-green-500">✓</span>
                 Safety-verified listings
@@ -96,15 +107,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
 
           {/* Owner Card */}
           <div 
-            className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn"
+            className={`rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
             style={{ animationDelay: '300ms' }}
             onClick={() => onNavigate()}
           >
             <div className="text-6xl mb-4">🏢</div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-3">
+            <h3 className={`text-2xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               For Owners
             </h3>
-            <ul className="space-y-2 text-gray-600 mb-6">
+            <ul className={`space-y-2 mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               <li className="flex items-center gap-2">
                 <span className="text-green-500">✓</span>
                 Occupancy tracking
@@ -129,30 +140,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         </div>
 
         {/* Features Grid */}
-        <div className="bg-white rounded-3xl p-8 shadow-lg animate-fadeIn" style={{ animationDelay: '400ms' }}>
-          <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+        <div className={`rounded-3xl p-8 shadow-lg animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`} style={{ animationDelay: '400ms' }}>
+          <h3 className={`text-2xl font-bold mb-6 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             Why Choose AASHRAY?
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
               <div className="text-4xl mb-2">🔒</div>
-              <div className="font-semibold text-gray-800">Safety First</div>
-              <div className="text-sm text-gray-600">Verified properties</div>
+              <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Safety First</div>
+              <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Verified properties</div>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">⚡</div>
-              <div className="font-semibold text-gray-800">Real-time</div>
-              <div className="text-sm text-gray-600">Instant updates</div>
+              <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Real-time</div>
+              <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Instant updates</div>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">🎯</div>
-              <div className="font-semibold text-gray-800">Smart Match</div>
-              <div className="text-sm text-gray-600">AI-powered</div>
+              <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Smart Match</div>
+              <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>AI-powered</div>
             </div>
             <div className="text-center">
               <div className="text-4xl mb-2">📊</div>
-              <div className="font-semibold text-gray-800">Analytics</div>
-              <div className="text-sm text-gray-600">Data-driven</div>
+              <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Analytics</div>
+              <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Data-driven</div>
             </div>
           </div>
         </div>
