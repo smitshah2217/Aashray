@@ -1,5 +1,6 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
+import TiltedCard from '../components/TiltedCard';
 
 interface LandingPageProps {
   onNavigate: () => void;
@@ -40,6 +41,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 max-w-4xl mx-auto">
           {/* Student Card */}
+          <TiltedCard
+            altText="For Students"
+            captionText="For Students"
+            containerHeight="auto"
+            containerWidth="100%"
+            imageHeight="auto"
+            imageWidth="100%"
+            rotateAmplitude={10}
+            scaleOnHover={1.02}
+            showMobileWarning={false}
+            showTooltip={false}
+          >
           <div 
             className={`rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
             style={{ animationDelay: '100ms' }}
@@ -71,6 +84,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               Explore Housing
             </button>
           </div>
+          </TiltedCard>
 
           {/* Roommate Card */}
           {/* <div 
@@ -106,6 +120,18 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </div> */}
 
           {/* Owner Card */}
+          <TiltedCard
+            altText="For Owners"
+            captionText="For Owners"
+            containerHeight="auto"
+            containerWidth="100%"
+            imageHeight="auto"
+            imageWidth="100%"
+            rotateAmplitude={10}
+            scaleOnHover={1.02}
+            showMobileWarning={false}
+            showTooltip={false}
+          >
           <div 
             className={`rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 cursor-pointer animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}
             style={{ animationDelay: '300ms' }}
@@ -137,6 +163,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
               Manage Properties
             </button>
           </div>
+          </TiltedCard>
         </div>
 
         {/* Features Grid */}
