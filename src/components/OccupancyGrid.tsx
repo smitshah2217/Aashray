@@ -1,12 +1,14 @@
 import React from 'react';
 import { Room } from '../types';
 import { calculateOccupancyPercentage } from '../utils/helpers';
+import { useApp } from '../context/AppContext';
 
 interface OccupancyGridProps {
   rooms: Room[];
 }
 
 const OccupancyGrid: React.FC<OccupancyGridProps> = ({ rooms }) => {
+  const { theme } = useApp();
   const totalBeds = rooms.reduce((sum, room) => sum + room.beds.length, 0);
   const occupiedBeds = rooms.reduce(
     (sum, room) => sum + room.beds.filter((bed) => bed.isOccupied).length,
@@ -15,14 +17,14 @@ const OccupancyGrid: React.FC<OccupancyGridProps> = ({ rooms }) => {
   const occupancyPercentage = calculateOccupancyPercentage(totalBeds, occupiedBeds);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
+    <div className={`rounded-2xl p-6 shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-bold text-xl text-gray-800">Occupancy Status</h3>
+        <h3 className={`font-bold text-xl ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Occupancy Status</h3>
         <div className="text-right">
           <div className="text-3xl font-bold text-amber-600">
             {occupancyPercentage}%
           </div>
-          <div className="text-sm text-gray-500">
+          <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
             {occupiedBeds} / {totalBeds} beds occupied
           </div>
         </div>
@@ -31,8 +33,8 @@ const OccupancyGrid: React.FC<OccupancyGridProps> = ({ rooms }) => {
       {/* Rooms Grid */}
       <div className="space-y-6">
         {rooms.map((room) => (
-          <div key={room.id} className="border border-gray-200 rounded-xl p-4">
-            <h4 className="font-semibold text-gray-800 mb-3">
+          <div key={room.id} className={`border rounded-xl p-4 ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
+            <h4 className={`font-semibold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               Room {room.roomNumber}
             </h4>
             <div className="grid grid-cols-4 gap-3">
@@ -76,14 +78,14 @@ const OccupancyGrid: React.FC<OccupancyGridProps> = ({ rooms }) => {
       </div>
 
       {/* Legend */}
-      <div className="flex items-center gap-6 mt-6 pt-4 border-t border-gray-200">
+      <div className={`flex items-center gap-6 mt-6 pt-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded" />
-          <span className="text-sm text-gray-600">Occupied</span>
+          <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Occupied</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-gradient-to-br from-green-400 to-green-600 rounded" />
-          <span className="text-sm text-gray-600">Available</span>
+          <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Available</span>
         </div>
       </div>
     </div>

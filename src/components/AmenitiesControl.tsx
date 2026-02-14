@@ -1,5 +1,6 @@
 import React from 'react';
 import { Amenity } from '../types';
+import { useApp } from '../context/AppContext';
 
 interface AmenitiesControlProps {
   amenities: Amenity[];
@@ -10,9 +11,11 @@ const AmenitiesControl: React.FC<AmenitiesControlProps> = ({
   amenities,
   onToggle,
 }) => {
+  const { theme } = useApp();
+  
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
-      <h3 className="font-bold text-xl text-gray-800 mb-6">
+    <div className={`rounded-2xl p-6 shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <h3 className={`font-bold text-xl mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
         Amenities Control Panel
       </h3>
 
@@ -20,13 +23,13 @@ const AmenitiesControl: React.FC<AmenitiesControlProps> = ({
         {amenities.map((amenity) => (
           <div
             key={amenity.id}
-            className="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors"
+            className={`flex items-center justify-between p-4 rounded-xl transition-colors ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-50 hover:bg-gray-100'}`}
           >
             <div className="flex items-center gap-4">
               <span className="text-3xl">{amenity.icon}</span>
               <div>
-                <h4 className="font-semibold text-gray-800">{amenity.name}</h4>
-                <p className="text-sm text-gray-500">
+                <h4 className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{amenity.name}</h4>
+                <p className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
                   +{amenity.safetyPoints} safety points
                 </p>
               </div>

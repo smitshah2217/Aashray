@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RoommateProfile } from '../types';
+import { useApp } from '../context/AppContext';
 
 interface RoommateCardProps {
   profile: RoommateProfile;
@@ -8,6 +9,7 @@ interface RoommateCardProps {
 }
 
 const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) => {
+  const { theme } = useApp();
   const [isDragging, setIsDragging] = useState(false);
   const [dragX, setDragX] = useState(0);
   const [startX, setStartX] = useState(0);
@@ -74,7 +76,7 @@ const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) 
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      <div className="bg-white rounded-3xl shadow-2xl overflow-hidden h-full flex flex-col">
+      <div className={`rounded-3xl shadow-2xl overflow-hidden h-full flex flex-col ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
         {/* Profile Image */}
         <div className="relative h-64 overflow-hidden">
           <img
@@ -91,18 +93,18 @@ const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) 
 
         {/* Profile Info */}
         <div className="p-6 flex-1 overflow-auto">
-          <h3 className="text-2xl font-bold text-gray-800 mb-1">
+          <h3 className={`text-2xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             {profile.name}, {profile.age}
           </h3>
-          <p className="text-gray-600 mb-4">
+          <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             {profile.course} • Year {profile.year}
           </p>
 
-          <p className="text-gray-700 mb-4">{profile.bio}</p>
+          <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{profile.bio}</p>
 
           {/* Habits */}
           <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">Habits & Lifestyle</h4>
+            <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Habits & Lifestyle</h4>
             <div className="flex flex-wrap gap-2">
               {profile.habits.map((habit, index) => {
                 // Determine habit icon and color
@@ -131,7 +133,7 @@ const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) 
 
           {/* Study Style */}
           <div className="mb-4">
-            <h4 className="text-sm font-semibold text-gray-700 mb-2">
+            <h4 className={`text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
               Study Style
             </h4>
             <span className={`inline-block px-4 py-2 rounded-xl font-medium ${
@@ -149,10 +151,10 @@ const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <h4 className="text-sm font-semibold text-gray-700 mb-1">
+              <h4 className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                 Cleanliness
               </h4>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
                 <div
                   className="h-full bg-gradient-to-r from-green-400 to-green-600"
                   style={{ width: `${profile.cleanliness}%` }}
@@ -160,10 +162,10 @@ const RoommateCard: React.FC<RoommateCardProps> = ({ profile, onSwipe, style }) 
               </div>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-gray-700 mb-1">
+              <h4 className={`text-sm font-semibold mb-1 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                 Social Level
               </h4>
-              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+              <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
                 <div
                   className="h-full bg-gradient-to-r from-purple-400 to-purple-600"
                   style={{ width: `${profile.socialLevel}%` }}

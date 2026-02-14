@@ -4,7 +4,7 @@ import RoommateCard from '../components/RoommateCard';
 import { RoommateProfile } from '../types';
 
 const RoommateSwipe: React.FC = () => {
-  const { roommateProfiles, matches, addMatch } = useApp();
+  const { roommateProfiles, matches, addMatch, theme } = useApp();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showMatch, setShowMatch] = useState(false);
 
@@ -32,18 +32,18 @@ const RoommateSwipe: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-red-50 flex items-center justify-center p-4">
+    <div className={`min-h-screen flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-purple-50 via-pink-50 to-red-50'}`}>
       <div className="max-w-lg w-full">
         {/* Header */}
         <div className="text-center mb-8 animate-fadeIn">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
             Find Your Roommate
           </h1>
-          <p className="text-gray-600">
+          <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
             Swipe right to connect • Swipe left to pass
           </p>
-          <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-md">
-            <span className="text-sm text-gray-600">Matches:</span>
+          <div className={`mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-full shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+            <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Matches:</span>
             <span className="font-bold text-purple-600">{matches.length}</span>
           </div>
         </div>
@@ -51,12 +51,12 @@ const RoommateSwipe: React.FC = () => {
         {/* Card Stack */}
         <div className="relative h-[600px] mb-8">
           {currentIndex >= remainingProfiles.length ? (
-            <div className="absolute inset-0 bg-white rounded-3xl shadow-2xl flex flex-col items-center justify-center p-8 text-center animate-fadeIn">
+            <div className={`absolute inset-0 rounded-3xl shadow-2xl flex flex-col items-center justify-center p-8 text-center animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
               <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">
+              <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 All Caught Up!
               </h3>
-              <p className="text-gray-600 mb-6">
+              <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                 You've seen all available roommate profiles
               </p>
               <button
@@ -67,7 +67,7 @@ const RoommateSwipe: React.FC = () => {
               </button>
               {matches.length > 0 && (
                 <div className="mt-8 w-full">
-                  <h4 className="font-semibold text-gray-700 mb-3">
+                  <h4 className={`font-semibold mb-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
                     Your Matches ({matches.length})
                   </h4>
                   <div className="space-y-2">
@@ -78,7 +78,7 @@ const RoommateSwipe: React.FC = () => {
                       return profile ? (
                         <div
                           key={match.profileId}
-                          className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl"
+                          className={`flex items-center gap-3 p-3 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}
                         >
                           <img
                             src={profile.image}
@@ -86,10 +86,10 @@ const RoommateSwipe: React.FC = () => {
                             className="w-12 h-12 rounded-full object-cover"
                           />
                           <div className="flex-1 text-left">
-                            <div className="font-semibold text-gray-800">
+                            <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                               {profile.name}
                             </div>
-                            <div className="text-sm text-gray-600">
+                            <div className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                               {profile.course}
                             </div>
                           </div>
@@ -152,12 +152,12 @@ const RoommateSwipe: React.FC = () => {
       {/* Match Celebration */}
       {showMatch && currentProfile && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white rounded-3xl p-8 max-w-md text-center animate-scaleIn">
+          <div className={`rounded-3xl p-8 max-w-md text-center animate-scaleIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="text-6xl mb-4 animate-bounce">🎉</div>
-            <h3 className="text-3xl font-bold text-gray-800 mb-2">
+            <h3 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               It's a Match!
             </h3>
-            <p className="text-gray-600 mb-4">
+            <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               You and {currentProfile.name} are now connected
             </p>
             <div className="flex items-center justify-center gap-4 mb-6">

@@ -9,7 +9,7 @@ interface ListingCardProps {
 }
 
 const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
-  const { amenities, bookmarks, toggleBookmark } = useApp();
+  const { amenities, bookmarks, toggleBookmark, theme } = useApp();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const safetyScore = calculateSafetyScore(listing, amenities);
   const isBookmarked = bookmarks.includes(listing.id);
@@ -25,7 +25,7 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer">
+    <div className={`rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group cursor-pointer ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
       {/* Image Carousel */}
       <div className="relative h-48 overflow-hidden">
         <img
@@ -85,16 +85,16 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="font-bold text-lg text-gray-800 mb-2 line-clamp-1">
+        <h3 className={`font-bold text-lg mb-2 line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
           {listing.title}
         </h3>
 
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-3">
+        <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
           <span>📍</span>
           <span className="line-clamp-1">{listing.address}</span>
         </div>
 
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+        <div className={`flex items-center gap-2 text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
           <span>🚶</span>
           <span>{listing.distance} km away</span>
         </div>
@@ -113,19 +113,19 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
             ) : null;
           })}
           {listing.amenities.length > 3 && (
-            <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}>
               +{listing.amenities.length - 3} more
             </span>
           )}
         </div>
 
         {/* Rent */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+        <div className={`flex items-center justify-between pt-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
           <div>
-            <span className="text-2xl font-bold text-gray-800">
+            <span className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               {formatCurrency(listing.rent)}
             </span>
-            <span className="text-sm text-gray-500">/month</span>
+            <span className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>/month</span>
           </div>
           <button className="px-5 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105">
             View Details
