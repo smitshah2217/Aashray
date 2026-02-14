@@ -8,7 +8,7 @@ import ListingModal from '../components/ListingModal';
 import RentNotificationPanel from '../components/RentNotificationPanel';
 import RoommateCard from '../components/RoommateCard';
 import { FilterState, Listing } from '../types';
-import { calculateSafetyScore, getSafetyTier } from '../utils/helpers';
+import { calculateSafetyScore } from '../utils/helpers';
 
 const StudentDashboard: React.FC = () => {
   const { listings, amenities, rentNotifications, dismissNotification, theme, toggleTheme, roommateProfiles, matches, addMatch } = useApp();

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import RoommateCard from '../components/RoommateCard';
-import { RoommateProfile } from '../types';
 
 const RoommateSwipe: React.FC = () => {
   const { roommateProfiles, matches, addMatch, theme } = useApp();

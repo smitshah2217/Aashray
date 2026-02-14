@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Listing } from '../types';
-import { calculateSafetyScore, formatCurrency } from '../utils/helpers';
+import { formatCurrency } from '../utils/helpers';
 import { useApp } from '../context/AppContext';
 import SafetyScorecard from './SafetyScorecard';
 
@@ -19,7 +19,6 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
     studentPhone: '',
     message: '',
   });
-  const safetyScore = calculateSafetyScore(listing, amenities);
   const isBookmarked = bookmarks.includes(listing.id);
 
   const totalBeds = listing.rooms.reduce((sum, room) => sum + room.beds.length, 0);

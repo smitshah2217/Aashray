@@ -13,7 +13,6 @@ const SafetyScoreRing: React.FC<SafetyScoreRingProps> = ({
 }) => {
   const [animatedScore, setAnimatedScore] = useState(0);
   const circumference = 2 * Math.PI * 30;
-  const strokeDashoffset = circumference - (animatedScore / 100) * circumference;
 
   useEffect(() => {
     let currentScore = 0;
