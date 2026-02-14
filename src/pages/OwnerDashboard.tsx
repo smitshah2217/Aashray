@@ -4,6 +4,7 @@ import OccupancyGrid from '../components/OccupancyGrid';
 import RentTracker from '../components/RentTracker';
 import AmenitiesControl from '../components/AmenitiesControl';
 import QueriesPanel from '../components/QueriesPanel';
+import GlareHover from '../components/GlareHover';
 import { useToast } from '../hooks/useToast';
 import ToastContainer from '../components/ToastContainer';
 
