@@ -18,6 +18,34 @@ const StudentDashboard: React.FC = () => {
   const [showRoommateSwipe, setShowRoommateSwipe] = useState(false);
   const [currentRoommateIndex, setCurrentRoommateIndex] = useState(0);
   const [showMatch, setShowMatch] = useState(false);
+  const [showSkip, setShowSkip] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [profile, setProfile] = useState({
+    name: 'Alex Johnson',
+    age: 21,
+    email: 'alex.johnson@university.edu',
+    phone: '+1 (555) 123-4567',
+    address: '123 Campus Street, University City',
+    course: 'Computer Science',
+    year: 3,
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400',
+    bio: 'Third-year CS student looking for a quiet place to focus on studies and projects.',
+    preferences: ['Night Owl', 'Clean & Organized', 'Coffee Lover', 'Quiet Environment', 'Fitness Enthusiast'],
+    cleanliness: 90,
+    socialLevel: 60,
+  });
+
+  const availablePreferences = ['Night Owl', 'Early Bird', 'Clean & Organized', 'Coffee Lover', 'Tea Lover', 'Quiet Environment', 'Social Butterfly', 'Fitness Enthusiast', 'Foodie', 'Music Lover', 'Pet Lover'];
+
+  const togglePreference = (pref: string) => {
+    setProfile(prev => ({
+      ...prev,
+      preferences: prev.preferences.includes(pref)
+        ? prev.preferences.filter(p => p !== pref)
+        : [...prev.preferences, pref]
+    }));
+  };
   const [filters, setFilters] = useState<FilterState>({
     maxBudget: 25000,
     minSafetyTier: 'All',
@@ -37,9 +65,13 @@ const StudentDashboard: React.FC = () => {
       setTimeout(() => {
         setShowMatch(false);
         setCurrentRoommateIndex((prev) => prev + 1);
-      }, 2000);
+      }, 1500);
     } else {
-      setCurrentRoommateIndex((prev) => prev + 1);
+      setShowSkip(true);
+      setTimeout(() => {
+        setShowSkip(false);
+        setCurrentRoommateIndex((prev) => prev + 1);
+      }, 800);
     }
   };
 
@@ -72,6 +104,251 @@ const StudentDashboard: React.FC = () => {
 
   return (
     <div className={`min-h-screen ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'}`}>
+      {/* Profile Modal */}
+      {showProfile && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className={`max-w-2xl w-full rounded-3xl shadow-2xl overflow-hidden my-8 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+            <div className="relative">
+              <div className="h-32 bg-gradient-to-r from-amber-500 to-orange-500"></div>
+              <div className="absolute top-4 right-4 flex gap-2">
+                <button
+                  onClick={() => {
+                    if (isEditing) {
+                      setIsEditing(false);
+                    } else {
+                      setIsEditing(true);
+                    }
+                  }}
+                  className="px-4 py-2 bg-white/90 rounded-full flex items-center gap-2 hover:bg-white transition-colors font-semibold text-sm"
+                >
+                  <svg className="w-4 h-4 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                  </svg>
+                  {isEditing ? 'Save' : 'Edit'}
+                </button>
+                <button
+                  onClick={() => {
+                    setShowProfile(false);
+                    setIsEditing(false);
+                  }}
+                  className="w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors"
+                >
+                  <svg className="w-5 h-5 text-gray-700" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </button>
+              </div>
+              <div className="absolute -bottom-16 left-8">
+                <img
+                  src={profile.image}
+                  alt={profile.name}
+                  className="w-32 h-32 rounded-full border-4 border-white object-cover shadow-lg"
+                />
+              </div>
+            </div>
+
+            <div className="pt-20 px-8 pb-8">
+              {isEditing ? (
+                <div className="flex gap-4 mb-6">
+                  <input
+                    type="text"
+                    value={profile.name}
+                    onChange={(e) => setProfile({...profile, name: e.target.value})}
+                    className={`text-3xl font-bold flex-1 px-3 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
+                  />
+                  <input
+                    type="number"
+                    value={profile.age}
+                    onChange={(e) => setProfile({...profile, age: parseInt(e.target.value)})}
+                    className={`text-3xl font-bold w-20 px-3 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700 text-white' : 'bg-gray-100 text-gray-800'}`}
+                  />
+                </div>
+              ) : (
+                <h2 className={`text-3xl font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+                  {profile.name}, {profile.age}
+                </h2>
+              )}
+              {isEditing ? (
+                <div className="flex gap-4 mb-6">
+                  <input
+                    type="text"
+                    value={profile.course}
+                    onChange={(e) => setProfile({...profile, course: e.target.value})}
+                    className={`flex-1 px-3 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                  />
+                  <input
+                    type="number"
+                    value={profile.year}
+                    onChange={(e) => setProfile({...profile, year: parseInt(e.target.value)})}
+                    className={`w-20 px-3 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                  />
+                </div>
+              ) : (
+                <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+                  {profile.course} • Year {profile.year}
+                </p>
+              )}
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div>
+                  <h3 className={`text-sm font-semibold mb-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Contact Info</h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <svg className={`w-4 h-4 flex-shrink-0 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                        <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                      </svg>
+                      {isEditing ? (
+                        <input
+                          type="email"
+                          value={profile.email}
+                          onChange={(e) => setProfile({...profile, email: e.target.value})}
+                          className={`text-sm flex-1 px-2 py-1 rounded ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                        />
+                      ) : (
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.email}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className={`w-4 h-4 flex-shrink-0 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                      </svg>
+                      {isEditing ? (
+                        <input
+                          type="tel"
+                          value={profile.phone}
+                          onChange={(e) => setProfile({...profile, phone: e.target.value})}
+                          className={`text-sm flex-1 px-2 py-1 rounded ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                        />
+                      ) : (
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.phone}</span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <svg className={`w-4 h-4 flex-shrink-0 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`} fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd" />
+                      </svg>
+                      {isEditing ? (
+                        <input
+                          type="text"
+                          value={profile.address}
+                          onChange={(e) => setProfile({...profile, address: e.target.value})}
+                          className={`text-sm flex-1 px-2 py-1 rounded ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                        />
+                      ) : (
+                        <span className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.address}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className={`text-sm font-semibold mb-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>About Me</h3>
+                  {isEditing ? (
+                    <textarea
+                      value={profile.bio}
+                      onChange={(e) => setProfile({...profile, bio: e.target.value})}
+                      rows={4}
+                      className={`text-sm w-full px-3 py-2 rounded-lg ${theme === 'dark' ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-gray-600'}`}
+                    />
+                  ) : (
+                    <p className={`text-sm ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.bio}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className={`text-sm font-semibold mb-3 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>
+                  Preferences & Lifestyle {isEditing && <span className="text-xs font-normal">(Click to toggle)</span>}
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {(isEditing ? availablePreferences : profile.preferences).map((pref, index) => {
+                    const getStyle = (pref: string) => {
+                      if (pref.includes('Night')) return { icon: '🌙', color: 'from-indigo-50 to-purple-50 text-purple-700' };
+                      if (pref.includes('Early')) return { icon: '🌅', color: 'from-yellow-50 to-orange-50 text-orange-700' };
+                      if (pref.includes('Clean')) return { icon: '✨', color: 'from-green-50 to-emerald-50 text-green-700' };
+                      if (pref.includes('Coffee')) return { icon: '☕', color: 'from-amber-50 to-orange-50 text-amber-700' };
+                      if (pref.includes('Tea')) return { icon: '🍵', color: 'from-green-50 to-teal-50 text-teal-700' };
+                      if (pref.includes('Quiet')) return { icon: '🤫', color: 'from-gray-50 to-slate-50 text-gray-700' };
+                      if (pref.includes('Social')) return { icon: '🎉', color: 'from-pink-50 to-rose-50 text-pink-700' };
+                      if (pref.includes('Fitness')) return { icon: '💪', color: 'from-blue-50 to-cyan-50 text-blue-700' };
+                      if (pref.includes('Foodie')) return { icon: '🍕', color: 'from-red-50 to-orange-50 text-red-700' };
+                      if (pref.includes('Music')) return { icon: '🎵', color: 'from-purple-50 to-pink-50 text-purple-700' };
+                      if (pref.includes('Pet')) return { icon: '🐾', color: 'from-amber-50 to-yellow-50 text-amber-700' };
+                      return { icon: '⭐', color: 'from-pink-50 to-rose-50 text-pink-700' };
+                    };
+                    const style = getStyle(pref);
+                    const isSelected = profile.preferences.includes(pref);
+                    return (
+                      <button
+                        key={index}
+                        onClick={() => isEditing && togglePreference(pref)}
+                        disabled={!isEditing}
+                        className={`px-3 py-1 bg-gradient-to-r ${style.color} rounded-full text-sm font-medium flex items-center gap-1 transition-all ${
+                          isEditing ? 'cursor-pointer hover:scale-105' : ''
+                        } ${isEditing && !isSelected ? 'opacity-40' : 'opacity-100'}`}
+                      >
+                        <span>{style.icon}</span>
+                        {pref}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Cleanliness</h4>
+                    <span className={`text-sm font-bold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.cleanliness}%</span>
+                  </div>
+                  {isEditing ? (
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={profile.cleanliness}
+                      onChange={(e) => setProfile({...profile, cleanliness: parseInt(e.target.value)})}
+                      className="w-full"
+                    />
+                  ) : (
+                    <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
+                      <div
+                        className="h-full bg-gradient-to-r from-green-400 to-green-600 transition-all"
+                        style={{ width: `${profile.cleanliness}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Social Level</h4>
+                    <span className={`text-sm font-bold ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>{profile.socialLevel}%</span>
+                  </div>
+                  {isEditing ? (
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={profile.socialLevel}
+                      onChange={(e) => setProfile({...profile, socialLevel: parseInt(e.target.value)})}
+                      className="w-full"
+                    />
+                  ) : (
+                    <div className={`h-2 rounded-full overflow-hidden ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-200'}`}>
+                      <div
+                        className="h-full bg-gradient-to-r from-purple-400 to-purple-600 transition-all"
+                        style={{ width: `${profile.socialLevel}%` }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Rent Notifications */}
       <RentNotificationPanel 
         notifications={rentNotifications} 
@@ -89,21 +366,21 @@ const StudentDashboard: React.FC = () => {
       {/* Roommate Swipe Modal */}
       {showRoommateSwipe && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="max-w-lg w-full">
+          <div className="max-w-md w-full">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-3xl font-bold text-white">Find Your Roommate</h2>
+              <h2 className="text-2xl font-bold text-white">Find Your Roommate</h2>
               <button
                 onClick={() => {
                   setShowRoommateSwipe(false);
                   setCurrentRoommateIndex(0);
                 }}
-                className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
+                className="w-10 h-10 bg-white rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors"
               >
                 ✕
               </button>
             </div>
             
-            <div className="relative h-[600px]">
+            <div className="relative h-[500px]">
               {currentRoommateIndex >= remainingProfiles.length ? (
                 <div className={`rounded-3xl shadow-2xl p-12 text-center ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                   <div className="text-6xl mb-4">🎉</div>
@@ -117,28 +394,11 @@ const StudentDashboard: React.FC = () => {
                   </button>
                 </div>
               ) : (
-                <>
-                  {remainingProfiles
-                    .slice(currentRoommateIndex, currentRoommateIndex + 3)
-                    .reverse()
-                    .map((profile, index) => {
-                      const reverseIndex = 2 - index;
-                      return (
-                        <RoommateCard
-                          key={profile.id}
-                          profile={profile}
-                          onSwipe={reverseIndex === 2 ? handleSwipe : () => {}}
-                          style={{
-                            zIndex: reverseIndex,
-                            transform: `scale(${1 - reverseIndex * 0.05}) translateY(${
-                              reverseIndex * -10
-                            }px)`,
-                            opacity: reverseIndex === 2 ? 1 : 0.7,
-                          }}
-                        />
-                      );
-                    })}
-                </>
+                <RoommateCard
+                  key={currentProfile?.id}
+                  profile={currentProfile}
+                  onSwipe={handleSwipe}
+                />
               )}
             </div>
 
@@ -146,18 +406,33 @@ const StudentDashboard: React.FC = () => {
               <div className="flex items-center justify-center gap-6 mt-6">
                 <button
                   onClick={() => handleSwipe('left')}
-                  className="w-16 h-16 bg-white rounded-full shadow-lg flex items-center justify-center text-3xl hover:shadow-xl transition-all transform hover:scale-110"
+                  className="w-14 h-14 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all transform hover:scale-110 text-red-500"
                 >
-                  ❌
+                  <svg className="w-7 h-7" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                  </svg>
                 </button>
                 <button
                   onClick={() => handleSwipe('right')}
-                  className="w-20 h-20 bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg flex items-center justify-center text-4xl hover:shadow-xl transition-all transform hover:scale-110"
+                  className="w-16 h-16 bg-gradient-to-r from-green-400 to-green-600 rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-all transform hover:scale-110 text-white"
                 >
-                  💚
+                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+                  </svg>
                 </button>
               </div>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Skip Feedback */}
+      {showSkip && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 animate-fadeIn pointer-events-none">
+          <div className="bg-white rounded-3xl p-8 shadow-2xl animate-scaleIn">
+            <svg className="w-16 h-16 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
           </div>
         </div>
       )}
@@ -166,7 +441,11 @@ const StudentDashboard: React.FC = () => {
       {showMatch && currentProfile && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn">
           <div className={`rounded-3xl p-8 max-w-md text-center animate-scaleIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
-            <div className="text-6xl mb-4 animate-bounce">🎉</div>
+            <div className="flex justify-center mb-4">
+              <svg className="w-16 h-16 text-green-500 animate-bounce" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clipRule="evenodd" />
+              </svg>
+            </div>
             <h3 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>It's a Match!</h3>
             <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>You and {currentProfile.name} are now connected</p>
             <div className="flex items-center justify-center gap-4 mb-6">
@@ -194,6 +473,16 @@ const StudentDashboard: React.FC = () => {
               </p>
             </div>
             <div className="flex items-center gap-3">
+              {/* Profile Button */}
+              <button
+                onClick={() => setShowProfile(true)}
+                className={`p-3 rounded-xl font-semibold transition-all ${theme === 'dark' ? 'bg-gray-800 text-white' : 'bg-white text-gray-700'} shadow-md hover:shadow-lg`}
+              >
+                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+                </svg>
+              </button>
+
               {/* Dark Mode Toggle */}
               <button
                 onClick={toggleTheme}
