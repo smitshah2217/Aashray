@@ -105,10 +105,10 @@ const StudentDashboard: React.FC = () => {
             
             <div className="relative h-[600px]">
               {currentRoommateIndex >= remainingProfiles.length ? (
-                <div className="bg-white rounded-3xl shadow-2xl p-12 text-center">
+                <div className={`rounded-3xl shadow-2xl p-12 text-center ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                   <div className="text-6xl mb-4">🎉</div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">All Caught Up!</h3>
-                  <p className="text-gray-600 mb-6">You've seen all available roommate profiles</p>
+                  <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>All Caught Up!</h3>
+                  <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>You've seen all available roommate profiles</p>
                   <button
                     onClick={() => setCurrentRoommateIndex(0)}
                     className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
@@ -165,10 +165,10 @@ const StudentDashboard: React.FC = () => {
       {/* Match Celebration */}
       {showMatch && currentProfile && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 animate-fadeIn">
-          <div className="bg-white rounded-3xl p-8 max-w-md text-center animate-scaleIn">
+          <div className={`rounded-3xl p-8 max-w-md text-center animate-scaleIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="text-6xl mb-4 animate-bounce">🎉</div>
-            <h3 className="text-3xl font-bold text-gray-800 mb-2">It's a Match!</h3>
-            <p className="text-gray-600 mb-4">You and {currentProfile.name} are now connected</p>
+            <h3 className={`text-3xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>It's a Match!</h3>
+            <p className={`mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>You and {currentProfile.name} are now connected</p>
             <div className="flex items-center justify-center gap-4 mb-6">
               <img
                 src={currentProfile.image}
@@ -244,19 +244,19 @@ const StudentDashboard: React.FC = () => {
             <FilterSection filters={filters} onFilterChange={setFilters} />
 
             {/* Stats Card */}
-            <div className="bg-white rounded-2xl p-6 shadow-md mt-6">
-              <h3 className="font-bold text-lg text-gray-800 mb-4">
+            <div className={`rounded-2xl p-6 shadow-md mt-6 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+              <h3 className={`font-bold text-lg mb-4 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                 Search Results
               </h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Total Listings</span>
-                  <span className="font-bold text-gray-800">
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Total Listings</span>
+                  <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                     {filteredListings.length}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Available Beds</span>
+                  <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>Available Beds</span>
                   <span className="font-bold text-green-600">
                     {filteredListings.reduce(
                       (sum, listing) =>
@@ -297,12 +297,12 @@ const StudentDashboard: React.FC = () => {
                 ))}
               </div>
             ) : filteredListings.length === 0 ? (
-              <div className="bg-white rounded-2xl p-12 text-center shadow-md animate-fadeIn">
+              <div className={`rounded-2xl p-12 text-center shadow-md animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                 <div className="text-6xl mb-4">🏠</div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">
+                <h3 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
                   No Listings Found
                 </h3>
-                <p className="text-gray-600 mb-6">
+                <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                   Try adjusting your filters to see more results
                 </p>
                 <button
