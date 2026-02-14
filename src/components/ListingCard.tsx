@@ -86,19 +86,19 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
       </div>
 
       {/* Content */}
-      <div className="p-5">
-        <h3 className={`font-bold text-lg mb-2 line-clamp-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+      <div className="p-5 space-y-3">
+        <h3 className={`font-bold text-lg line-clamp-1 animate-fadeIn ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
           {listing.title}
         </h3>
 
-        <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+        <div className={`flex items-center gap-2 text-sm animate-slideInLeft ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} style={{ animationDelay: '0.1s' }}>
           <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
           </svg>
           <span className="line-clamp-1">{listing.address}</span>
         </div>
 
-        <div className={`flex items-center gap-2 text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+        <div className={`flex items-center gap-2 text-sm animate-slideInLeft ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`} style={{ animationDelay: '0.2s' }}>
           <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
           </svg>
@@ -106,7 +106,7 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
         </div>
 
         {/* Amenities */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 animate-slideInLeft" style={{ animationDelay: '0.3s' }}>
           {listing.amenities.slice(0, 3).map((amenityId) => {
             const amenity = amenities.find((a) => a.id === amenityId);
             return amenity ? (
@@ -127,7 +127,7 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
         </div>
 
         {/* Rent */}
-        <div className={`flex items-center justify-between pt-4 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`}>
+        <div className={`flex items-center justify-between pt-4 border-t animate-slideInLeft ${theme === 'dark' ? 'border-gray-700' : 'border-gray-100'}`} style={{ animationDelay: '0.4s' }}>
           <div>
             <span className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               {formatCurrency(listing.rent)}
