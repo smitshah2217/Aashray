@@ -103,9 +103,9 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
             onClick={() => toggleBookmark(listing.id)}
             className="absolute top-4 right-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white transition-colors shadow-lg"
           >
-            <span className={`text-2xl ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`}>
-              {isBookmarked ? '❤️' : '🤍'}
-            </span>
+            <svg className={`w-6 h-6 ${isBookmarked ? 'fill-red-500' : 'fill-none stroke-gray-400'}`} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+            </svg>
           </button>
         </div>
 
@@ -117,8 +117,12 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
             {renderStars(listing.rating)}
           </div>
           {/* Location & Distance */}
+
           <div className={`flex items-center gap-2 mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-            <span className="text-xl">📍</span>
+            <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            </svg>
+
             <span>{listing.address}</span>
             <span className={theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}>•</span>
             <span>{listing.distance} km away</span>
@@ -148,9 +152,15 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
           </div>
 
           {/* Owner Details */}
-          <div className={`mb-6 rounded-2xl p-6 border-2 ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
-            <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
-              <span>👤</span> Owner Details
+
+
+           <div className={`mb-6 rounded-2xl p-6 border-2 ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
+             <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+              </svg>
+              Owner Details
+
             </h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">

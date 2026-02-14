@@ -72,9 +72,9 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
           }}
           className="absolute top-3 right-3 bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors"
         >
-          <span className={`text-xl ${isBookmarked ? 'text-red-500' : 'text-gray-400'}`}>
-            {isBookmarked ? '❤️' : '🤍'}
-          </span>
+          <svg className={`w-6 h-6 ${isBookmarked ? 'fill-red-500' : 'fill-none stroke-gray-400'}`} stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+          </svg>
         </button>
 
         {/* Safety Score Badge */}
@@ -89,13 +89,22 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
           {listing.title}
         </h3>
 
+
+
+       
+
         <div className={`flex items-center gap-2 text-sm mb-3 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-          <span>📍</span>
+          <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
           <span className="line-clamp-1">{listing.address}</span>
         </div>
 
-        <div className={`flex items-center gap-2 text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
-          <span>🚶</span>
+         <div className={`flex items-center gap-2 text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
+          <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/>
+          </svg>
+
           <span>{listing.distance} km away</span>
         </div>
 
@@ -106,9 +115,10 @@ const ListingCard: React.FC<ListingCardProps> = memo(({ listing }) => {
             return amenity ? (
               <span
                 key={amenityId}
-                className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-medium"
+                className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-xs font-medium flex items-center gap-1"
               >
-                {amenity.icon} {amenity.name}
+                <span dangerouslySetInnerHTML={{ __html: amenity.icon }} />
+                {amenity.name}
               </span>
             ) : null;
           })}
