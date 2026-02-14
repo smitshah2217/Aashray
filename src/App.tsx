@@ -5,7 +5,7 @@ import OwnerDashboard from './pages/OwnerDashboard';
 import RoommateSwipe from './pages/RoommateSwipe';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-import DemoBanner from './components/DemoBanner';
+// import DemoBanner from './components/DemoBanner';
 
 type Route = 'home' | 'login' | 'student' | 'owner' | 'roommate';
 type UserRole = 'student' | 'owner' | 'roommate' | null;
@@ -46,7 +46,7 @@ function App() {
     <AppProvider>
       <div className="min-h-screen">
         {/* Demo Banner - only show when logged in */}
-        {userRole && <DemoBanner />}
+        {/* {userRole && <DemoBanner />} */}
         
         {/* Navigation - only show when logged in */}
         {userRole && (
