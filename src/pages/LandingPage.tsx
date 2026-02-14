@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useApp } from '../context/AppContext';
 import TiltedCard from '../components/TiltedCard';
 
@@ -10,7 +10,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
   const { theme, toggleTheme } = useApp();
   
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'}`}>
+    <div className={`min-h-screen flex items-center justify-center p-4 relative overflow-hidden ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'}`}>
+      {/* Animated Background Blobs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className={`absolute top-20 left-10 w-72 h-72 rounded-full blur-3xl opacity-20 animate-blob ${theme === 'dark' ? 'bg-white' : 'bg-amber-300'}`}></div>
+        <div className={`absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-20 animate-blob animation-delay-2000 ${theme === 'dark' ? 'bg-white' : 'bg-orange-300'}`}></div>
+        <div className={`absolute -bottom-20 left-1/3 w-80 h-80 rounded-full blur-3xl opacity-20 animate-blob animation-delay-4000 ${theme === 'dark' ? 'bg-white' : 'bg-yellow-300'}`}></div>
+      </div>
       {/* Dark Mode Toggle */}
       <button
         onClick={toggleTheme}
@@ -27,7 +33,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
         )}
       </button>
       
-      <div className="max-w-6xl w-full">
+      <div className="max-w-6xl w-full relative z-10">
         {/* Hero Section */}
         <div className="text-center mb-16 animate-fadeIn">
           <div className="inline-flex items-center gap-4 mb-6">
