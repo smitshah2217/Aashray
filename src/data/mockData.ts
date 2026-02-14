@@ -255,63 +255,6 @@ export const initialListings: Listing[] = [
       },
     ],
   },
-  {
-    id: 'lst-9',
-    title: 'Smart Stay - Kandivali',
-    images: [
-      'https://images.unsplash.com/photo-1505692794403-34d4982e6b79?w=800&h=600&fit=crop',
-    ],
-    address: 'Kandivali East, Mumbai',
-    distance: 7.5,
-    rent: 8500,
-    amenities: ['cctv', 'biometric'],
-    latitude: 19.2095,
-    longitude: 72.8634,
-    description: 'Modern security enabled PG',
-    ownerName: 'Suresh Gowda',
-    ownerPhone: '+91 98765 43218',
-    ownerEmail: 'suresh.gowda@aashray.com',
-    rating: 4.1,
-    rooms: [
-      {
-        id: 'room-10',
-        roomNumber: '201',
-        beds: [
-          { id: 'bed-10-1', bedNumber: 1, isOccupied: false },
-          { id: 'bed-10-2', bedNumber: 2, isOccupied: true, tenantName: 'Megha Rao' },
-        ],
-      },
-    ],
-  },
-  {
-    id: 'lst-10',
-    title: 'Royal PG - Santacruz',
-    images: [
-      'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=600&fit=crop',
-    ],
-    address: 'Santacruz West, Mumbai',
-    distance: 3.2,
-    rent: 12500,
-    amenities: ['cctv', 'guard'],
-    latitude: 19.0896,
-    longitude: 72.8295,
-    description: 'Classic stay in heritage area',
-    ownerName: 'Lakshmi Narayan',
-    ownerPhone: '+91 98765 43219',
-    ownerEmail: 'lakshmi.narayan@aashray.com',
-    rating: 4.5,
-    rooms: [
-      {
-        id: 'room-11',
-        roomNumber: '105',
-        beds: [
-          { id: 'bed-11-1', bedNumber: 1, isOccupied: true, tenantName: 'Aditya Kulkarni' },
-          { id: 'bed-11-2', bedNumber: 2, isOccupied: false },
-          { id: 'bed-11-3', bedNumber: 3, isOccupied: false },
-        ],
-      },
-    ],
-  },
 
 ];
 

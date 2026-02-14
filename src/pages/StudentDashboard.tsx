@@ -465,10 +465,10 @@ const StudentDashboard: React.FC = () => {
         <header className="mb-8 animate-fadeIn">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className={`text-4xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+              <h1 className={`text-4xl font-bold mb-2 bg-gradient-to-r from-amber-600 via-orange-500 to-amber-600 bg-clip-text text-transparent animate-pulse ${theme === 'dark' ? '' : ''}`}>
                 Find Your Safe Haven
               </h1>
-              <p className={theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}>
+              <p className={`text-lg font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                 Discover verified student housing with comprehensive safety ratings
               </p>
             </div>
