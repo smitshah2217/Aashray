@@ -1,5 +1,6 @@
 import React from 'react';
 import { RaiseQueryRequest } from '../types';
+import { useApp } from '../context/AppContext';
 
 interface QueriesPanelProps {
   queries: RaiseQueryRequest[];
@@ -7,12 +8,13 @@ interface QueriesPanelProps {
 }
 
 const QueriesPanel: React.FC<QueriesPanelProps> = ({ queries, onRespond }) => {
+  const { theme } = useApp();
   const pendingQueries = queries.filter(q => q.status === 'pending');
   const respondedQueries = queries.filter(q => q.status === 'responded');
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-md">
-      <h3 className="font-bold text-xl text-gray-800 mb-6">Student Queries</h3>
+    <div className={`rounded-2xl p-6 shadow-md ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
+      <h3 className={`font-bold text-xl mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Student Queries</h3>
 
       {/* Summary */}
       <div className="grid grid-cols-2 gap-4 mb-6">
@@ -29,7 +31,7 @@ const QueriesPanel: React.FC<QueriesPanelProps> = ({ queries, onRespond }) => {
       {/* Queries List */}
       <div className="space-y-4 max-h-[500px] overflow-y-auto">
         {queries.length === 0 ? (
-          <div className="text-center py-12 text-gray-500">
+          <div className={`text-center py-12 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
             <div className="text-5xl mb-3">📭</div>
             <p>No queries yet</p>
           </div>

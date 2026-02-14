@@ -10,7 +10,7 @@ interface ListingModalProps {
 }
 
 const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
-  const { amenities, bookmarks, toggleBookmark, raiseQuery } = useApp();
+  const { amenities, bookmarks, toggleBookmark, raiseQuery, theme } = useApp();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [showQueryForm, setShowQueryForm] = useState(false);
   const [queryData, setQueryData] = useState({
@@ -55,13 +55,13 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fadeIn">
-      <div className="bg-white rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scaleIn">
+      <div className={`rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto animate-scaleIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
         {/* Header with Close Button */}
-        <div className="sticky top-0 bg-white z-10 flex items-center justify-between p-4 border-b">
-          <h2 className="text-2xl font-bold text-gray-800">{listing.title}</h2>
+        <div className={`sticky top-0 z-10 flex items-center justify-between p-4 border-b ${theme === 'dark' ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'}`}>
+          <h2 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{listing.title}</h2>
           <button
             onClick={onClose}
-            className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors"
+            className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
           >
             ✕
           </button>
@@ -113,21 +113,23 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
         <div className="p-6">
           {/* Title & Rating */}
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-gray-800 mb-2">{listing.title}</h2>
+            <h2 className={`text-2xl font-bold mb-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{listing.title}</h2>
             {renderStars(listing.rating)}
           </div>
           {/* Location & Distance */}
-          <div className="flex items-center gap-2 text-gray-600 mb-4">
+
+          <div className={`flex items-center gap-2 mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
+
             <span>{listing.address}</span>
-            <span className="text-gray-400">•</span>
+            <span className={theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}>•</span>
             <span>{listing.distance} km away</span>
           </div>
 
           {/* Description */}
-          <p className="text-gray-700 mb-6">{listing.description}</p>
+          <p className={`mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>{listing.description}</p>
 
           {/* Safety Score Section */}
           <div className="mb-6">
@@ -136,48 +138,51 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
 
           {/* Availability */}
           <div className="mb-6">
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Availability</h3>
+            <h3 className={`text-lg font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Availability</h3>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-green-500 rounded" />
-                <span className="text-gray-700">{availableBeds} Available</span>
+                <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>{availableBeds} Available</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-4 h-4 bg-red-500 rounded" />
-                <span className="text-gray-700">{totalBeds - availableBeds} Occupied</span>
+                <span className={theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}>{totalBeds - availableBeds} Occupied</span>
               </div>
             </div>
           </div>
 
           {/* Owner Details */}
-          <div className="mb-6 bg-blue-50 rounded-2xl p-6 border-2 border-blue-200">
-            <h3 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+
+
+           <div className={`mb-6 rounded-2xl p-6 border-2 ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
+             <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>
               Owner Details
+
             </h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <span className="text-gray-600 font-semibold w-24">Name:</span>
-                <span className="text-gray-800">{listing.ownerName}</span>
+                <span className={`font-semibold w-24 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Name:</span>
+                <span className={theme === 'dark' ? 'text-white' : 'text-gray-800'}>{listing.ownerName}</span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-gray-600 font-semibold w-24">Phone:</span>
+                <span className={`font-semibold w-24 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Phone:</span>
                 <a href={`tel:${listing.ownerPhone}`} className="text-blue-600 hover:underline">{listing.ownerPhone}</a>
               </div>
               <div className="flex items-center gap-3">
-                <span className="text-gray-600 font-semibold w-24">Email:</span>
+                <span className={`font-semibold w-24 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>Email:</span>
                 <a href={`mailto:${listing.ownerEmail}`} className="text-blue-600 hover:underline">{listing.ownerEmail}</a>
               </div>
             </div>
           </div>
 
           {/* Rent & Actions */}
-          <div className="flex items-center justify-between pt-6 border-t">
+          <div className={`flex items-center justify-between pt-6 border-t ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}>
             <div>
-              <div className="text-sm text-gray-600 mb-1">Monthly Rent</div>
-              <div className="text-3xl font-bold text-gray-800">{formatCurrency(listing.rent)}</div>
+              <div className={`text-sm mb-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Monthly Rent</div>
+              <div className={`text-3xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{formatCurrency(listing.rent)}</div>
             </div>
             <div className="flex gap-3">
               <button 
@@ -200,57 +205,57 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
       {/* Query Form Modal */}
       {showQueryForm && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full p-8 animate-scaleIn">
+          <div className={`rounded-3xl max-w-md w-full p-8 animate-scaleIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold text-gray-800">Raise Query</h3>
+              <h3 className={`text-2xl font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Raise Query</h3>
               <button
                 onClick={() => setShowQueryForm(false)}
-                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                className={`w-10 h-10 rounded-full flex items-center justify-center ${theme === 'dark' ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-100 hover:bg-gray-200'}`}
               >
                 ✕
               </button>
             </div>
             <form onSubmit={handleRaiseQuery} className="space-y-4">
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Your Name</label>
+                <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Your Name</label>
                 <input
                   type="text"
                   required
                   value={queryData.studentName}
                   onChange={(e) => setQueryData({ ...queryData, studentName: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                  className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'border-gray-200'}`}
                   placeholder="Enter your name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+                <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Email</label>
                 <input
                   type="email"
                   required
                   value={queryData.studentEmail}
                   onChange={(e) => setQueryData({ ...queryData, studentEmail: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                  className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'border-gray-200'}`}
                   placeholder="your.email@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+                <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Phone</label>
                 <input
                   type="tel"
                   required
                   value={queryData.studentPhone}
                   onChange={(e) => setQueryData({ ...queryData, studentPhone: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none"
+                  className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'border-gray-200'}`}
                   placeholder="+91 XXXXX XXXXX"
                 />
               </div>
               <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-2">Message</label>
+                <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Message</label>
                 <textarea
                   required
                   value={queryData.message}
                   onChange={(e) => setQueryData({ ...queryData, message: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none h-32 resize-none"
+                  className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none h-32 resize-none ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white' : 'border-gray-200'}`}
                   placeholder="Ask about availability, amenities, etc."
                 />
               </div>

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
-import { AppProvider } from './context/AppContext';
+import { AppProvider, useApp } from './context/AppContext';
 import StudentDashboard from './pages/StudentDashboard';
 import OwnerDashboard from './pages/OwnerDashboard';
 import RoommateSwipe from './pages/RoommateSwipe';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
-// import DemoBanner from './components/DemoBanner';
 
 type Route = 'home' | 'login' | 'student' | 'owner' | 'roommate';
 type UserRole = 'student' | 'owner' | 'roommate' | null;
 
-function App() {
+function AppContent() {
   const [currentRoute, setCurrentRoute] = useState<Route>('home');
   const [userRole, setUserRole] = useState<UserRole>(null);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { theme } = useApp();
 
   const handleLogin = (role: 'student' | 'owner' | 'roommate') => {
     setUserRole(role);
@@ -43,13 +42,9 @@ function App() {
   };
 
   return (
-    <AppProvider>
-      <div className="min-h-screen">
-        {/* Demo Banner - only show when logged in */}
-        {/* {userRole && <DemoBanner />} */}
-        
-        {/* Navigation - only show when logged in */}
-        {userRole && (
+    <div className="min-h-screen">
+      {/* Navigation - only show when logged in */}
+      {userRole && (
           <nav className={`shadow-md sticky top-0 z-40 ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
             <div className="container mx-auto px-4">
               <div className="flex items-center justify-between h-16">
@@ -78,9 +73,16 @@ function App() {
           </nav>
         )}
 
-        {/* Page Content */}
-        <main>{renderPage()}</main>
-      </div>
+      {/* Page Content */}
+      <main>{renderPage()}</main>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <AppProvider>
+      <AppContent />
     </AppProvider>
   );
 }

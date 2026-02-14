@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useApp } from '../context/AppContext';
 
 interface LoginPageProps {
   onLogin: (role: 'student' | 'owner' | 'roommate') => void;
 }
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
+  const { theme, toggleTheme } = useApp();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -36,7 +38,15 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center p-4">
+    <div className={`min-h-screen flex items-center justify-center p-4 ${theme === 'dark' ? 'bg-gray-900' : 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50'}`}>
+      {/* Dark Mode Toggle */}
+      <button
+        onClick={toggleTheme}
+        className={`fixed top-4 right-4 p-3 rounded-xl font-semibold transition-all shadow-md hover:shadow-lg ${theme === 'dark' ? 'bg-gray-800 text-yellow-400' : 'bg-white text-gray-700'}`}
+      >
+        {theme === 'dark' ? '☀️' : '🌙'}
+      </button>
+      
       <div className="max-w-md w-full">
         {/* Logo & Title */}
         <div className="text-center mb-8 animate-fadeIn">
@@ -48,32 +58,32 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
               AASHRAY
             </h1>
           </div>
-          <p className="text-gray-600 text-lg">Safe Student Housing Platform</p>
+          <p className={`text-lg ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Safe Student Housing Platform</p>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 mb-6 animate-fadeIn" style={{ animationDelay: '100ms' }}>
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">Login to Continue</h2>
+        <div className={`rounded-3xl shadow-2xl p-8 mb-6 animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`} style={{ animationDelay: '100ms' }}>
+          <h2 className={`text-2xl font-bold mb-6 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Login to Continue</h2>
           
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Email</label>
+              <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-colors"
+                className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none transition-colors ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-200'}`}
                 placeholder="Enter your email"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">Password</label>
+              <label className={`block text-sm font-semibold mb-2 ${theme === 'dark' ? 'text-gray-200' : 'text-gray-700'}`}>Password</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-amber-500 focus:outline-none transition-colors"
+                className={`w-full px-4 py-3 rounded-xl border-2 focus:border-amber-500 focus:outline-none transition-colors ${theme === 'dark' ? 'bg-gray-700 border-gray-600 text-white placeholder-gray-400' : 'border-gray-200'}`}
                 placeholder="Enter your password"
               />
             </div>
@@ -94,19 +104,19 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         </div>
 
         {/* Quick Login Options */}
-        <div className="bg-white rounded-3xl shadow-2xl p-8 animate-fadeIn" style={{ animationDelay: '200ms' }}>
-          <h3 className="text-lg font-bold text-gray-800 mb-4 text-center">Quick Login (Demo)</h3>
+        <div className={`rounded-3xl shadow-2xl p-8 animate-fadeIn ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`} style={{ animationDelay: '200ms' }}>
+          <h3 className={`text-lg font-bold mb-4 text-center ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Quick Login (Demo)</h3>
           
           <div className="space-y-3">
             <button
               onClick={() => handleQuickLogin('student')}
-              className="w-full p-4 bg-gradient-to-r from-amber-50 to-orange-50 border-2 border-amber-200 rounded-xl hover:border-amber-400 transition-all group"
+              className={`w-full p-4 rounded-xl border-2 transition-all group ${theme === 'dark' ? 'bg-amber-900/30 border-amber-700 hover:border-amber-500' : 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200 hover:border-amber-400'}`}
             >
               <div className="flex items-center gap-3">
                 <div className="text-3xl">🎓</div>
                 <div className="flex-1 text-left">
-                  <div className="font-bold text-gray-800 group-hover:text-amber-600 transition-colors">Student</div>
-                  <div className="text-xs text-gray-600">student@aashray.com / student123</div>
+                  <div className={`font-bold group-hover:text-amber-600 transition-colors ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Student</div>
+                  <div className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>student@aashray.com / student123</div>
                 </div>
                 <div className="text-amber-600">→</div>
               </div>
@@ -114,13 +124,13 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
             <button
               onClick={() => handleQuickLogin('owner')}
-              className="w-full p-4 bg-gradient-to-r from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-xl hover:border-blue-400 transition-all group"
+              className={`w-full p-4 rounded-xl border-2 transition-all group ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700 hover:border-blue-500' : 'bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 hover:border-blue-400'}`}
             >
               <div className="flex items-center gap-3">
                 <div className="text-3xl">🏢</div>
                 <div className="flex-1 text-left">
-                  <div className="font-bold text-gray-800 group-hover:text-blue-600 transition-colors">Property Owner</div>
-                  <div className="text-xs text-gray-600">owner@aashray.com / owner123</div>
+                  <div className={`font-bold group-hover:text-blue-600 transition-colors ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Property Owner</div>
+                  <div className={`text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>owner@aashray.com / owner123</div>
                 </div>
                 <div className="text-blue-600">→</div>
               </div>
@@ -143,7 +153,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         </div>
 
         {/* Demo Info */}
-        <div className="mt-6 text-center text-sm text-gray-600 animate-fadeIn" style={{ animationDelay: '300ms' }}>
+        <div className={`mt-6 text-center text-sm animate-fadeIn ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`} style={{ animationDelay: '300ms' }}>
           <p>💡 Use Quick Login for instant access or enter credentials above</p>
         </div>
       </div>
