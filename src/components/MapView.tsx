@@ -85,13 +85,12 @@ const MapView: React.FC<MapViewProps> = ({ listings, onListingClick }) => {
               <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-4 hidden group-hover:block z-10">
                 <div className={`rounded-xl shadow-xl p-4 min-w-[250px] ${theme === 'dark' ? 'bg-gray-800' : 'bg-white'}`}>
                   <h4 className={`font-bold mb-1 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>{listing.title}</h4>
-                  <p className="text-sm text-gray-600 mb-2 flex items-center gap-1">
+                  <p className={`text-sm mb-2 flex items-center gap-1 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
                     <svg className="w-4 h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
                     </svg>
                     {listing.distance} km away
                   </p>
-
                   <p className="text-lg font-bold text-amber-600">₹{listing.rent.toLocaleString()}/mo</p>
                   <div className={`mt-2 text-xs ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>Click to view details</div>
                 </div>
