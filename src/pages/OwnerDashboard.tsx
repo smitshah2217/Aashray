@@ -39,6 +39,10 @@ const OwnerDashboard: React.FC = () => {
     showToast('Query marked as responded', 'success');
   };
 
+  const handleAddProperty = () => {
+    showToast('Add Property feature coming soon!', 'info');
+  };
+
   // Aggregate all rooms from all listings
   const allRooms = listings.flatMap((listing) => listing.rooms);
 
@@ -86,7 +90,7 @@ const OwnerDashboard: React.FC = () => {
               </svg>
             )}
           </button>
-          <button className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-lg transition-all duration-300">
+          <button onClick={handleAddProperty} className="px-6 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl shadow-lg transition-all duration-300">
             + Add Property
           </button>
         </div>
