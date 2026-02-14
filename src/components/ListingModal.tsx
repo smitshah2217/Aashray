@@ -117,10 +117,12 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
             {renderStars(listing.rating)}
           </div>
           {/* Location & Distance */}
+
           <div className={`flex items-center gap-2 mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
             <svg className="w-5 h-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
+
             <span>{listing.address}</span>
             <span className={theme === 'dark' ? 'text-gray-600' : 'text-gray-400'}>•</span>
             <span>{listing.distance} km away</span>
@@ -150,8 +152,11 @@ const ListingModal: React.FC<ListingModalProps> = ({ listing, onClose }) => {
           </div>
 
           {/* Owner Details */}
-          <div className={`mb-6 rounded-2xl p-6 border-2 ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
-            <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+
+
+           <div className={`mb-6 rounded-2xl p-6 border-2 ${theme === 'dark' ? 'bg-blue-900/30 border-blue-700' : 'bg-blue-50 border-blue-200'}`}>
+             <h3 className={`text-lg font-bold mb-4 flex items-center gap-2 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
+
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>

@@ -45,10 +45,12 @@ const SafetyScorecard: React.FC<SafetyScorecardProps> = ({ listing, amenities })
         {/* Base Score */}
         <div className={`flex items-center justify-between p-3 rounded-xl ${theme === 'dark' ? 'bg-gray-700' : 'bg-gray-50'}`}>
           <div className="flex items-center gap-3">
+
             <svg className="w-6 h-6 text-gray-600" fill="currentColor" viewBox="0 0 24 24">
               <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
             </svg>
             <span className={`font-medium ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Base Score</span>
+
           </div>
           <span className={`font-bold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>+{baseScore}</span>
         </div>
