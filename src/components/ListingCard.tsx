@@ -1,3 +1,5 @@
+
+
 import React, { useState, memo } from 'react';
 import { Listing } from '../types';
 import { calculateSafetyScore, formatCurrency } from '../utils/helpers';
