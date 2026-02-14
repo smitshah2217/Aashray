@@ -32,32 +32,30 @@ const SafetyScoreRing: React.FC<SafetyScoreRingProps> = ({
   }, [safetyScore.score]);
 
   return (
-    <div className="relative inline-flex items-center justify-center">
-      <svg width={size} height={size} className="transform -rotate-90">
+    <div className="relative inline-flex items-center justify-center" style={{ width: size + 16, height: size + 16 }}>
+      <svg width={size + 16} height={size + 16} className="transform -rotate-90">
         {/* Background circle */}
         <circle
-          cx={size / 2}
-          cy={size / 2}
+          cx={(size + 16) / 2}
+          cy={(size + 16) / 2}
           r={30}
           stroke="#e5e7eb"
           strokeWidth="8"
-          fill="none"
+          fill="white"
         />
         {/* Progress circle */}
         <circle
-          cx={size / 2}
-          cy={size / 2}
+          cx={(size + 16) / 2}
+          cy={(size + 16) / 2}
           r={30}
           stroke={getTierColor(safetyScore.tier)}
           strokeWidth="8"
           fill="none"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
+          strokeDasharray={`${(animatedScore / 100) * circumference} ${circumference}`}
           className="transition-all duration-300 ease-out"
         />
       </svg>
-      <div className="absolute inset-0 flex flex-col items-center justify-center">
+      <div className="absolute inset-0 flex flex-col items-center justify-center" style={{ width: size + 16, height: size + 16 }}>
         <span className="text-xl font-bold text-gray-800">{animatedScore}</span>
         <span className="text-xs text-gray-500">{safetyScore.tier}</span>
       </div>
