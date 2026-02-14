@@ -66,25 +66,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             style={{ animationDelay: '100ms' }}
             onClick={() => onNavigate()}
           >
-            <div className="text-6xl mb-4">🎓</div>
+            <div className="flex justify-center mb-4">
+              <svg className="w-16 h-16 text-amber-500" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+              </svg>
+            </div>
             <h3 className={`text-2xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               For Students
             </h3>
             <ul className={`space-y-2 mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Safety-verified listings
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Smart filters & search
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Real-time availability
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Bookmark favorites
               </li>
             </ul>
@@ -145,25 +157,37 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
             style={{ animationDelay: '300ms' }}
             onClick={() => onNavigate()}
           >
-            <div className="text-6xl mb-4">🏢</div>
+            <div className="flex justify-center mb-4">
+              <svg className="w-16 h-16 text-indigo-500" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clipRule="evenodd" />
+              </svg>
+            </div>
             <h3 className={`text-2xl font-bold mb-3 ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>
               For Owners
             </h3>
             <ul className={`space-y-2 mb-6 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'}`}>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Occupancy tracking
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Rent management
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Amenities control
               </li>
               <li className="flex items-center gap-2">
-                <span className="text-green-500">✓</span>
+                <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
                 Analytics dashboard
               </li>
             </ul>
@@ -181,22 +205,38 @@ const LandingPage: React.FC<LandingPageProps> = ({ onNavigate }) => {
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="text-center">
-              <div className="text-4xl mb-2">🔒</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-12 h-12 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+              </div>
               <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Safety First</div>
               <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Verified properties</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">⚡</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-12 h-12 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clipRule="evenodd" />
+                </svg>
+              </div>
               <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Real-time</div>
               <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Instant updates</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">🎯</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-12 h-12 text-purple-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clipRule="evenodd" />
+                </svg>
+              </div>
               <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Smart Match</div>
               <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>AI-powered</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl mb-2">📊</div>
+              <div className="flex justify-center mb-2">
+                <svg className="w-12 h-12 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                </svg>
+              </div>
               <div className={`font-semibold ${theme === 'dark' ? 'text-white' : 'text-gray-800'}`}>Analytics</div>
               <div className={`text-sm ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>Data-driven</div>
             </div>
