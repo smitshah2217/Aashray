@@ -118,3 +118,172 @@ Create utility function: calculateSafetyScore(listing) Add badge tier logic:
 * Sample hardcoded data
 * Clean reusable components The final product must feel like a startup-ready demo, not a college assignment.
 give downloadable zip
+
+
+OR - i dont remember and am not sure ig
+
+
+Build a complete frontend-only web application named AASHRAY – Safe Student Housing Discovery & Management Platform.
+Tech Stack:
+* React (Vite setup)
+* TypeScript
+* Tailwind CSS
+* No Next.js
+* No backend
+* All data hardcoded
+* Global shared state using React Context or Zustand
+Architecture Requirements
+Create feature-based folder structure:
+
+```
+src/
+ ├── components/
+ ├── features/
+ │     ├── student/
+ │     ├── owner/
+ │     ├── roommate/
+ │     ├── safety/
+ │     ├── occupancy/
+ │     ├── rent/
+ ├── context/
+ ├── hooks/
+ ├── data/
+ ├── types/
+ ├── utils/
+ ├── pages/
+
+```
+
+Implement routing:
+* /student
+* /owner
+Shared global state must include:
+* Listings
+* Amenities
+* Occupancy
+* Rent status
+* Roommate profiles
+Safety Score Logic
+Implement dynamic calculation:
+
+```
+base = 50
+if CCTV: +10
+if Guard: +15
+if Biometrics: +20
+if FireSafety: +5
+
+```
+
+Create utility function: calculateSafetyScore(listing)
+Add badge tier logic:
+* =85 Gold
+* =70 Silver
+* else Basic
+Animate score changes using smooth incremental animation.
+Student Dashboard
+Include:
+1. Map-style layout container
+2. Listing grid
+3. Listing card component with:
+   * Image carousel
+   * Animated safety score ring
+   * Amenity badges
+   * Rent amount
+   * Distance
+   * Bookmark button
+Add filter section:
+* Budget slider
+* Safety tier filter
+* Distance filter
+Include:
+* Skeleton loader
+* Empty state
+* Smooth card hover lift effect
+Roommate Swipe Module
+Implement swipe interaction using either pointer drag logic or framer-motion.
+Each card shows:
+* Habit tags
+* Compatibility %
+* Study style
+Implement:
+* Swipe right → match
+* Swipe left → dismiss
+* Stack-based card UI
+* Match celebration animation
+Handle empty stack state.
+Owner Dashboard
+Create SaaS-style admin layout.
+Occupancy Grid
+Efficiently render rooms:
+Example: Room 101 → 4 beds
+Use dynamic grid rendering from data.
+Each bed:
+* Red = occupied
+* Green = empty
+* Hover tooltip
+* Smooth color transition
+Display:
+* Occupancy percentage
+* Animated donut chart (optional)
+Rent Tracker
+List tenants:
+* Name
+* Room number
+* Rent status
+Toggle: Mark as Paid
+When toggled:
+* Update shared state
+* Trigger toast notification in student view
+Amenities Control Panel
+Provide toggle switches:
+* CCTV
+* Guards
+* Biometrics
+* Fire Safety
+On toggle:
+* Update listing amenities
+* Recalculate safety score
+* Animate score update in student view
+Performance Considerations
+* Memoize heavy components
+* Avoid unnecessary re-renders
+* Use derived state for occupancy %
+* Use TypeScript interfaces for all entities
+UI & Animation System
+Implement structured motion:
+Page Load:
+* Fade + stagger
+Card Hover:
+* Slight lift + shadow
+Modal Open:
+* Scale + fade
+Score Update:
+* Animated count-up
+Toast:
+* Slide-in from top-right
+Maintain consistent duration (200–300ms).
+Edge Cases
+Handle:
+* No listings
+* All beds occupied
+* No roommate profiles
+* Low safety warning (<65)
+* Rent overdue visual alert
+Styling
+* Modern SaaS design
+* Soft shadows
+* Subtle gradients
+* Rounded corners (xl)
+* Proper spacing system
+* Dark/light toggle
+* Fully responsive
+Deliverables
+Generate:
+* Full component code
+* Type definitions
+* Context implementation
+* Utility functions
+* Sample hardcoded data
+* Clean reusable components
+The final product must feel like a startup-ready demo, not a college assignment.
